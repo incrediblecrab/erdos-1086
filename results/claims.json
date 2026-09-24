@@ -1,0 +1,118 @@
+{
+ "problem": "Erdős #1086: g(n) is the largest number of triangles of one nonzero area spanned by n points of the plane",
+ "status": "open: n^2 log log n << g(n) << n^(20/9) [ErPu71, RaSh17]; not solved here",
+ "exact": [
+  {
+   "n": 3,
+   "g": 1,
+   "evidence": "trivial"
+  },
+  {
+   "n": 4,
+   "g": 4,
+   "evidence": "4 triples; a parallelogram attains 4"
+  },
+  {
+   "n": 5,
+   "g": 7,
+   "evidence": "upper: src/g5_certificate.py 8, hand proof NOTES.md section 4; lower: stored configuration"
+  },
+  {
+   "n": 6,
+   "g": 12,
+   "evidence": "upper: src/g6_exact.py with src/g6_brute.py, using g(5) = 7; lower: the 2 x 3 grid"
+  }
+ ],
+ "small_n": [
+  {
+   "n": 7,
+   "lower": 18,
+   "upper": 21
+  },
+  {
+   "n": 8,
+   "lower": 28,
+   "upper": 33
+  },
+  {
+   "n": 9,
+   "lower": 36,
+   "upper": 49
+  },
+  {
+   "n": 10,
+   "lower": 48,
+   "upper": 70
+  },
+  {
+   "n": 11,
+   "lower": 60,
+   "upper": 96
+  },
+  {
+   "n": 12,
+   "lower": 74,
+   "upper": 128
+  },
+  {
+   "n": 13,
+   "lower": 91,
+   "upper": 166
+  },
+  {
+   "n": 14,
+   "lower": 108,
+   "upper": 211
+  },
+  {
+   "n": 15,
+   "lower": 128,
+   "upper": 263
+  },
+  {
+   "n": 16,
+   "lower": 148,
+   "upper": 323
+  }
+ ],
+ "lattice": [
+  {
+   "a": 100,
+   "b": 100,
+   "n": 10000,
+   "D": 120,
+   "count": 171104688
+  },
+  {
+   "a": 200,
+   "b": 200,
+   "n": 40000,
+   "D": 360,
+   "count": 3007465808
+  },
+  {
+   "a": 400,
+   "b": 400,
+   "n": 160000,
+   "D": 2520,
+   "count": 52665219156
+  },
+  {
+   "a": 800,
+   "b": 800,
+   "n": 640000,
+   "D": 5040,
+   "count": 911639642036
+  }
+ ],
+ "reproduced": {
+  "DST09_T1": {
+   "m": 800,
+   "T1": 249006655884
+  }
+ },
+ "informal": [
+  "Theorem A: for fixed N, T_N(m)/m^4 -> (6/pi^2) sigma(N)/N as m -> infinity (NOTES.md section 3)",
+  "Theorem B: max_N T_N(m) = (6 e^gamma/pi^2 + o(1)) n^2 log log n with n = m^2, so g(n) >= (1.08276... - o(1)) n^2 log log n (NOTES.md section 3)"
+ ]
+}
