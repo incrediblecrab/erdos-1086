@@ -190,7 +190,7 @@
      2
     ]
    ],
-   "upper": 21,
+   "upper": 20,
    "exact": false,
    "methods_reaching_best": [
     "anneal 10x10 1M",
@@ -242,7 +242,7 @@
      2
     ]
    ],
-   "upper": 33,
+   "upper": 32,
    "exact": false,
    "methods_reaching_best": [
     "anneal 10x10 1M",
@@ -298,7 +298,7 @@
      2
     ]
    ],
-   "upper": 49,
+   "upper": 48,
    "exact": false,
    "methods_reaching_best": [
     "anneal 10x10 1M",
@@ -358,7 +358,7 @@
      2
     ]
    ],
-   "upper": 70,
+   "upper": 68,
    "exact": false,
    "methods_reaching_best": [
     "anneal 10x10 1M",
@@ -422,7 +422,7 @@
      2
     ]
    ],
-   "upper": 96,
+   "upper": 93,
    "exact": false,
    "methods_reaching_best": [
     "anneal 10x10 1M",
@@ -490,7 +490,7 @@
      2
     ]
    ],
-   "upper": 128,
+   "upper": 124,
    "exact": false,
    "methods_reaching_best": [
     "anneal 10x10 1M",
@@ -562,7 +562,7 @@
      4
     ]
    ],
-   "upper": 166,
+   "upper": 161,
    "exact": false,
    "methods_reaching_best": [
     "anneal 10x10 1M",
@@ -636,7 +636,7 @@
      3
     ]
    ],
-   "upper": 211,
+   "upper": 204,
    "exact": false,
    "methods_reaching_best": [
     "anneal 10x10 1M",
@@ -714,7 +714,7 @@
      1
     ]
    ],
-   "upper": 263,
+   "upper": 255,
    "exact": false,
    "methods_reaching_best": [
     "anneal 10x10 1M",
@@ -796,7 +796,7 @@
      6
     ]
    ],
-   "upper": 323,
+   "upper": 313,
    "exact": false,
    "methods_reaching_best": [
     "anneal 10x10 1M",

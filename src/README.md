@@ -16,6 +16,7 @@ cd src && for p in grid_count brute_count small_search; do clang -O2 -Wall -Wext
 | `verify_lattice.py` | rechecks `lattice.json` against the raw histograms |
 | `g5_certificate.py` | Gröbner certificate that no 5 points span 8 triangles of one area |
 | `g6_exact.py`, `g6_brute.py` | $g(6)=12$: exact classification, and a scan sharing no code with it |
+| `g7_no21.py` | rules out 21 equal-area triangles on 7 points by enumerating the surviving triple systems and checking their polynomial systems |
 | `small_search.c`, `small_table.py` | exhaustive and annealing search for $n\le16$ (about 2 min), writing `results/small_n.json` |
 | `recount.py` | recounts every stored small-$n$ configuration |
-| `final_check.py` | re-derives every claim, planted defects included; exit 0 = pass (about 1 min) |
+| `final_check.py` | re-derives every claim, planted defects included; exit 0 = pass (about 2 min) |

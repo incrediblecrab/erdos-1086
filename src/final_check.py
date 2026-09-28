@@ -108,6 +108,9 @@ def main():
             "R = [(0, 0), (1, 0), (0, 1), (1, 1), (1, -1)]", "R = [(0, 0), (1, 0), (0, 1), (1, 1), (2, -1)]", 1))
         r = run([PY, wrong], env={**os.environ, "PYTHONPATH": str(SRC)})
         check("planted: g6_exact rejects a wrong reference configuration", r.returncode == 1)
+        r = run([PY, SRC / "g7_no21.py"])
+        check("g7_no21: no 7-point system has 21 triangles of one nonzero area",
+              r.returncode == 0 and "g(7) <= 20" in r.stdout, last(r))
 
         # 4. small-n configurations
         small = json.loads((ROOT / "results" / "small_n.json").read_text())
@@ -126,8 +129,8 @@ def main():
             n, g = e["n"], e["g"]
             ok = best[n]["count"] == g if n in best else (n, g) == (3, 1)
             check(f"claim g({n}) = {g}: lower bound attained by a stored configuration", ok)
-        upper = {6: 12}
-        for n in range(7, 17):
+        upper = {6: 12, 7: 20}
+        for n in range(8, 17):
             upper[n] = upper[n - 1] * n // (n - 3)
         for e in claims["small_n"]:
             n = e["n"]

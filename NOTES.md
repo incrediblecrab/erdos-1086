@@ -1,6 +1,6 @@
 # Erdős #1086: working notes
 
-Everything here was done on September 23, 2026, on an Apple M3 Pro (11 cores) under macOS 27.0, with Apple clang 21.0.0, Python 3.14.7, sympy 1.14.0 and numpy 2.5.3. Sources are cited by the tags in [`refs/README.md`](refs/README.md).
+The initial computations here were done on September 23, 2026, on an Apple M3 Pro (11 cores) under macOS 27.0, with Apple clang 21.0.0, Python 3.14.7, sympy 1.14.0 and numpy 2.5.3. The $g(7)\le20$ check was added on September 28, 2026. Sources are cited by the tags in [`refs/README.md`](refs/README.md).
 
 **Notation.** The *doubled area* of a triangle $pqr$ is $|\det(q-p,\,r-p)|$, twice its area; for lattice points it is a positive integer. $G_m=\{0,\dots,m-1\}^2$ is the $m\times m$ grid, $n=m^2$, and $T_N(m)$ is the number of triangles of $G_m$ with doubled area $N$. The code and `results/claims.json` write the doubled area as $D$. $\sigma(N)$ is the sum and $d(N)$ the number of divisors of $N$; $\gamma$ is Euler's constant; $\log$ is natural.
 
@@ -86,7 +86,9 @@ An affine map takes it to $(0,0),(1,0),(1,1),(0,1)$ with doubled area 1. A fifth
 
 `src/g6_brute.py` shares no code with `g6_exact.py`. It lists the possible denominators $\{1,2,3\}$ and scans every $X\in\frac16\mathbb Z^2$ with $|x|,|y|\le16$ (37,244 points) in integer arithmetic. It finds the same maximum at the same two points. During development three planted defects each made the check fail: a wrong $R$, one dropped solution (caught by the quotient-dimension test), and a shrunken brute-force box (maximum 10). The result rests on sympy's Gröbner bases and solvers. The cross-checks guard against missed solutions, but this is not a formal proof.
 
-**$g(7)$ is not settled: $18\le g(7)\le21$.** Seven points with 19 would need a six-subset with 11, since $4\cdot19>7\cdot10$. Classifying those needs five-point sets with 6, whose systems can be positive-dimensional. This was not attempted.
+**$g(7)$ is not settled: $18\le g(7)\le20$.** The script `src/g7_no21.py` rules out 21 equal-area triangles as follows. If seven points had 21 triangles of one nonzero area, every six-subset would have exactly 12, since each triangle is contained in four six-subsets and $g(6)=12$. Every five-subset has at most 7; when it has 7, the classification above says its equal-area triple system is $K_5^{(3)}$ with exactly the three triples through one pair missing. Enumerating the resulting 3-uniform hypergraphs on seven vertices leaves two isomorphism classes. For each class and each possible marked equal-area triple, an affine map sends that triple to $(0,0),(1,0),(0,1)$, and the polynomial equations $\det(t)^2=1$ for the other marked triples have Gröbner basis $[1]$ over $\mathbb Q$. Thus no such 21-triangle configuration exists, even over $\mathbb C$.
+
+This does not settle 19 or 20. Seven points with 20 would need six-subset counts summing to 80, so the simple averaging step no longer forces every six-subset to be extremal. Seven points with 19 would need a six-subset with 11, since $4\cdot19>7\cdot10$. Classifying those cases needs five-point sets with 6, whose systems can be positive-dimensional; this remains the concrete obstruction.
 
 ## 5. Small $n$
 
@@ -104,7 +106,7 @@ The upper bounds come from averaging: each triangle of an $n$-set lies in $n-3$ 
 | lower bound | 18 | 28 | 36 | 48 | 60 | 74 | 91 | 108 | 128 | 148 |
 | its doubled area | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
 | found by | both | both | both | both | both | both | anneal | anneal | anneal | anneal |
-| upper bound | 21 | 33 | 49 | 70 | 96 | 128 | 166 | 211 | 263 | 323 |
+| upper bound | 20 | 32 | 48 | 68 | 93 | 124 | 161 | 204 | 255 | 313 |
 
 For $n=7$ the configuration is the $2\times3$ grid plus $(1,2)$; for $n=8$ it is the $3\times3$ grid minus its centre. The rest are in `results/small_n.json`. The exhaustive values are optimal only within their box. An optimal set may need a larger box or non-lattice coordinates, so every lower bound for $n\ge7$ is only that. No published table of small values was found; an OEIS search for 1, 4, 7, 12, 18 returned four unrelated sequences.
 
@@ -148,12 +150,12 @@ At every $n$ computed here, $\lfloor\sqrt{\log n}\rfloor=3$, so the [ErPu71] con
 
 ## 7. How the numbers are checked
 
-`src/final_check.py` re-derives every entry of `results/claims.json`, runs 49 checks in about a minute, and exits 0 only if all pass:
+`src/final_check.py` re-derives every entry of `results/claims.json`, runs 50 checks in about two minutes, and exits 0 only if all pass:
 
 - `grid_count` must match the independent triple enumeration `src/brute_check.py` bin by bin at 12 sizes. These go up to 30×30 (120,464,616 triangles) and 17×53 (120,727,840).
 - `src/brute_count.c`, a second triple enumeration, written in C and sharing no code or method with `grid_count`, must reproduce the stored 25×25, 50×50 and 100×100 histograms byte for byte.
 - `grid_count` must rebuild five of the histograms to the SHA-256 that `lattice.json` records. `verify_lattice.py` must pass on all 16 runs, which includes checking each raw file against that hash.
-- The $g(5)$ certificate and its control must pass, as must `g6_exact.py` and `g6_brute.py` and the recount of every small-$n$ configuration.
+- The $g(5)$ certificate and its control must pass, as must `g6_exact.py`, `g6_brute.py`, `g7_no21.py` and the recount of every small-$n$ configuration.
 - Each claimed value is then compared with what those steps produced. Theorems A and B are reported as NOT MACHINE-CHECKED.
 
 The gate plants four defects of its own, and each must make the component exit 1:
@@ -163,7 +165,7 @@ The gate plants four defects of its own, and each must make the component exit 1
 - a wrong reference configuration, against `g6_exact`;
 - an overstated small-$n$ count, against `recount`.
 
-Separately, a copy of the directory was given three false claims in `claims.json`: $g(6)=13$, $19\le g(7)$, and one extra triangle at $n=640{,}000$. The same copy had 6 triangles added at $D=7$ in the stored 100×100 histogram. The gate exited 1, with 44 of 49 checks passing. It named the three claims, the `brute_count` comparison, and `verify_lattice`, which found that file's hash, its total, and its total against A045996 all wrong. The rebuild check passed, correctly: it compares `grid_count`'s output with the recorded hash, not with the file.
+Separately, before `g7_no21.py` was added, a copy of the directory was given three false claims in `claims.json`: $g(6)=13$, $19\le g(7)$, and one extra triangle at $n=640{,}000$. The same copy had 6 triangles added at $D=7$ in the stored 100×100 histogram. The old gate exited 1, with 44 of 49 checks passing. It named the three claims, the `brute_count` comparison, and `verify_lattice`, which found that file's hash, its total, and its total against A045996 all wrong. The rebuild check passed, correctly: it compares `grid_count`'s output with the recorded hash, not with the file.
 
 **Known blind spot.** `verify_lattice.py` checks totals, the best and fixed-$N$ bins, and hashes. A planted move of 6 triangles between two unchecked bins (7 and 11), with the hash updated, **passed**. Five of the 14 stored grids have every bin confirmed independently. The gate has `brute_count` reproduce the 25×25, 50×50 and 100×100 grids. One-off runs logged in `results/brute_count.log`, and not gate-checked, reproduced the 200×200 grid (28 min) and the 3×3333 strip byte for byte. The other nine were not brute-forced: 400×400, 800×800, the five other rectangles at $n=40{,}000$, and the strips at $n=39{,}999$ and $159{,}999$. The cost grows as $n^3$, so 400×400 would take an estimated 21 to 30 hours at the rates measured here. For those nine, per-bin correctness rests on `grid_count`'s agreement at the smaller sizes, on every raw count being divisible by 6, which `grid_count` enforces, and on the totals.
 
@@ -172,5 +174,5 @@ Separately, a copy of the directory was given three false claims in `claims.json
 - No Lean formalization. formal-conjectures has no statement to target, and none was written.
 - Theorems A and B are informal and unreviewed. The constant has not been checked against the unread literature in §1.
 - The asymptotics of the [ErPu71] strip were not derived.
-- $g(7)$ remains between 18 and 21. The small-$n$ lower bounds come from searches in small boxes.
+- $g(7)$ remains between 18 and 20. The small-$n$ lower bounds come from searches in small boxes.
 - The problem itself remains open.

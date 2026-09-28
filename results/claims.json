@@ -27,52 +27,52 @@
   {
    "n": 7,
    "lower": 18,
-   "upper": 21
+   "upper": 20
   },
   {
    "n": 8,
    "lower": 28,
-   "upper": 33
+   "upper": 32
   },
   {
    "n": 9,
    "lower": 36,
-   "upper": 49
+   "upper": 48
   },
   {
    "n": 10,
    "lower": 48,
-   "upper": 70
+   "upper": 68
   },
   {
    "n": 11,
    "lower": 60,
-   "upper": 96
+   "upper": 93
   },
   {
    "n": 12,
    "lower": 74,
-   "upper": 128
+   "upper": 124
   },
   {
    "n": 13,
    "lower": 91,
-   "upper": 166
+   "upper": 161
   },
   {
    "n": 14,
    "lower": 108,
-   "upper": 211
+   "upper": 204
   },
   {
    "n": 15,
    "lower": 128,
-   "upper": 263
+   "upper": 255
   },
   {
    "n": 16,
    "lower": 148,
-   "upper": 323
+   "upper": 313
   }
  ],
  "lattice": [
