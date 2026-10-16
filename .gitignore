@@ -13,3 +13,10 @@ src/brute_count
 src/small_search
 
 __pycache__/
+
+# Local environment files can hold credentials; committed templates stay tracked.
+.env
+.env.*
+!.env.example
+!.env.template
+!.env.sample
